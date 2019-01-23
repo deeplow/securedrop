@@ -12,3 +12,4 @@ securedrop_app_code_deb: "securedrop-app-code_{{ securedrop_app_code_version }}+
 # channel in the apt repo yet.
 apt_repo_target_distro: trusty
 tor_apt_target_distro: trusty
+securedrop_staging_install_target_distro: xenial
