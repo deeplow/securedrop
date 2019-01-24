@@ -9,12 +9,20 @@
     molecule_scenario_directory: "{{ lookup('env', 'MOLECULE_SCENARIO_DIRECTORY') }}"
     molecule_yml: "{{ lookup('file', molecule_file) | from_yaml }}"
     image_hash: "{{ lookup('pipe', 'egrep -v ^# image_hash') }}"
+    container_name: fpftestxen
   tasks:
+    - name: TEMPORARY Build Xenial image locally
+      docker_image:
+        path: "{{ molecule_scenario_directory }}"
+        name: "{{ container_name }}"
+        push: no
+        force: yes # always rebuild
+
     - name: Create builders
       docker_container:
         name: "{{ item.name }}"
         hostname: "{{ item.name }}"
-        image: "quay.io/freedomofpress/sd-docker-builder-xenial@sha256:{{image_hash}}"
+        image: "{{ container_name }}"
         state: started
         command: "tail -f /dev/null"
         privileged: "{{ item.privileged | default(omit) }}"
