@@ -22,7 +22,7 @@
     - role: build-ossec-deb-pkg
       tags: ossec-agent
       purpose: agent
-      when: ansible_host.endswith("trusty-sd-generic-ossec-agent")
+      when: ansible_host.endswith("-sd-generic-ossec-agent")
 
     - role: build-generic-pkg
       tags: securedrop-ossec-server
